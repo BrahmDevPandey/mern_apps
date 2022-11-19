@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation in JS</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+
+    <script>
+        function saveData() {
+            if (validate() === true)
+                alert("data submitted");
+            else
+                alert("invalid data");
+        }
+
+        function validate() {
+            const name = document.getElementsByName("name")[0].value;
+            const email = document.getElementsByName("email")[0].value;
+            const phone = document.getElementsByName("phone")[0].value;
+            // console.log({ name, email, phone });
+            const nameRegex = /^[A-Z][a-z]*[ ]{0,1}[A-Z][a-z]*$/;
+            const emailRegex = /^[a-z][a-z0-9]*.{0,1}[a-z0-9]+@[a-z]+.[a-z]+$/i;
+            const phoneRegex = /^[6-9][0-9]{9}$/;
+            return (nameRegex.test(name) && emailRegex.test(email) && phoneRegex.test(phone));
+        }
+    </script>
+</head>
+
+<body class="text-center">
+    <h3>
+        Student Information
+    </h3>
+    <form action="#" method="get" onsubmit="saveData(); return false" autocomplete="off" class="container"
+        style="width: 480px;">
+        <div class="m-5">
+            <label for="name">Name:</label>
+            <input type="text" name="name">
+        </div>
+        <div class="m-5">
+            <label for="email">EmailId:</label>
+            <input type="email" name="email">
+        </div>
+        <div class="m-5">
+            <label for="phone">Phone No.:</label>
+            <input type="text" name="phone">
+        </div>
+        <div class="m-4 text-end">
+            <button type="submit" class="btn btn-primary mx-4">Submit</button>
+        </div>
+    </form>
+</body>
+
+</html>

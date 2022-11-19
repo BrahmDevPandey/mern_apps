@@ -1,0 +1,17 @@
+body::before {
+  display: block;
+  content: "";
+  height: 60px;
+}
+
+#notify-box {
+  display: none;
+  margin-top: 100px;
+  border: 1px solid red;
+}
+
+@media (min-width: 768px) {
+  .news-input {
+    width: 50%;
+  }
+}

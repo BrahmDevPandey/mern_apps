@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Grid Demo</title>
+
+    <style>
+      .wrapper {
+        display: grid;
+      }
+
+      .wrapper > div {
+        background-color: #eee;
+        padding: 1em;
+      }
+
+      .wrapper > div:nth-child(odd) {
+        background-color: #ddd;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper"></div>
+  </body>
+</html>

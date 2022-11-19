@@ -1,0 +1,65 @@
+@media(max-width: 580px) {
+    .margin-sm {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+}
+
+@media(max-width: 800px) {
+    .column-md {
+        width: 45vw;
+    }
+}
+
+.column {
+    width: 30vw;
+}
+
+.sequence {
+    text-align: center;
+    margin-left: 15px;
+    margin-top: 10px;
+    color: gray;
+    width: 25px; 
+    border: 2px solid lightgray;
+    border-radius: 30px;
+}
+
+.category {
+    margin-left: 15px;
+    margin-top: 10px;
+    font-size: 17px;
+    color:gray;
+}
+
+.my-navbar {
+    margin: 20px;
+    text-align: center;
+}
+
+.nav-btn {
+    margin-left: 10px;
+    margin-right: 10px;
+    border: none;
+    font-size: large;
+}
+
+.order-btn {
+    text-align: center;
+    border: 2px solid gray;
+    border-radius: 20px;
+    width: fit-content;
+    align-self: flex-end;
+    font-size: 14px;
+    color: gray;
+}
+
+.card-border{
+    border-radius: 20px;
+}
+
+.item-image {
+    border-radius: 5px;
+    align-self: center;
+    margin-top: 15px;
+}

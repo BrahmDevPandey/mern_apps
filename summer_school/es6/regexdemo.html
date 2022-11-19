@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regex Demo</title>
+</head>
+
+<body>
+    <div style="width: 500px; margin: auto; margin-top: 10  px;">
+        <h1>
+            <form onsubmit="main(); return false;" autocomplete="off">
+                Input: <input type="text" id="input" style="font-size: 20px;">
+                <button type="submit" onclick="main()" onkeypress="">
+                    <h3>Test</h3>
+                </button>
+                <br>
+                Output: <span id="output"></span>
+            </form>
+        </h1>
+    </div>
+
+    <script>
+        const inp = document.getElementById("input");
+        const out = document.getElementById("output");
+
+        // creating basic input - output functions
+        function input() {
+            return inp.value;
+        }
+
+        function output(res) {
+            console.log(res);
+            out.innerText = res;
+        }
+
+        // core logic
+        function main() {
+            const str = input();
+            // const reg = /ims/;
+
+            /* checking for name */
+            // var nameReg = /^[a-zA-Z]{4,80}[ ]{0,1}[a-zA-Z]{4,80}$/;
+            // const isValid = nameReg.test(str);
+
+            /* checking for phone number */
+            // const phoneReg = /^[6-9][0-9]{9}$/;
+            // const isValid = phoneReg.test(str);
+
+            /* checking for email */
+            // const emailReg = /^[a-z][a-z0-9]+.{0,1}[a-z0-9]+@[a-z]+.[a-z]+$/i;
+            // const isValid = emailReg.test(str);
+
+            output(isValid);
+        }   
+    </script>
+</body>
+
+</html>
