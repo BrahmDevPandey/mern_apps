@@ -44,30 +44,35 @@
             margin-bottom: 90px;
         }
     </style>
+    <?php
+    include 'inc/cdn.php';
+    ?>
 </head>
-<?php include("..\Admin_Panel\dbcon.php");   
-    if(isset($_POST['del_ppr'])){
-        $id=$_POST['del_ppr'];
-        $rs=mysqli_fetch_array(mysqli_query($con,"select * from question_paper where id=".$id));
-        $exc=mysqli_query($con,"delete from question_paper where id=".$id);
-        if($exc){
-            $r=explode("drift_pages",$rs['file_url']);
-            unlink("../".end($r));
-            echo "<script>alert('Data deleted..')</script>";
-        }
-        
+<?php include("..\Admin_Panel\dbcon.php");
+if (isset($_POST['del_ppr'])) {
+    $id = $_POST['del_ppr'];
+    $rs = mysqli_fetch_array(mysqli_query($con, "select * from question_paper where id=" . $id));
+    $exc = mysqli_query($con, "delete from question_paper where id=" . $id);
+    if ($exc) {
+        $r = explode("drift_pages", $rs['file_url']);
+        unlink("../" . end($r));
+        echo "<script>alert('Data deleted..')</script>";
     }
 
+}
+
 ?>
+
 <body>
-    <header class="bg-gray-800 text-white text-center p-5 fixed top-0 w-full">This is the site header</header>
+    <!-- <header class="bg-gray-800 text-white text-center p-5 fixed top-0 w-full">This is the site header</header> -->
+    <?php include 'header.php'; ?>
     <main>
-    <?php
-        $qr="select category from question_paper group by category";
-        $exc=mysqli_query($con,$qr);
-        if(mysqli_num_rows($exc)){
-            while($data=mysqli_fetch_array($exc)){
-                echo '<div class="bg-green-600 p-5 text-white m-3 w-[90%]">'.$data['category'].'</div>';
+        <?php
+        $qr = "select category from question_paper group by category";
+        $exc = mysqli_query($con, $qr);
+        if (mysqli_num_rows($exc)) {
+            while ($data = mysqli_fetch_array($exc)) {
+                echo '<div class="bg-green-600 p-5 text-white m-3 w-[90%]">' . $data['category'] . '</div>';
                 echo '<form method="POST">
                     <table class="">
                     <tbody>
@@ -77,14 +82,14 @@
                             <th width="40%">Content</th>
                             <th width="15%">File</th>
                         </tr>';
-                $exc1=mysqli_query($con,"select * from question_paper where category='".$data['category']."'");
-                if(mysqli_num_rows($exc1)){
-                    while($data1=mysqli_fetch_array($exc1)){
+                $exc1 = mysqli_query($con, "select * from question_paper where category='" . $data['category'] . "'");
+                if (mysqli_num_rows($exc1)) {
+                    while ($data1 = mysqli_fetch_array($exc1)) {
                         echo '<tr>
-                                <td>'.$data1['title'].'</td>
-                                <td>'.$data1['year'].'</td>
-                                <td>'.$data1['content'].'</td>
-                                <td><a href="'.$data1['file_url'].'">Show</a>        <button type="submit" value="'.$data1['id'].'" name="del_ppr">Delete</button></td>
+                                <td>' . $data1['title'] . '</td>
+                                <td>' . $data1['year'] . '</td>
+                                <td>' . $data1['content'] . '</td>
+                                <td><a href="' . $data1['file_url'] . '">Show</a>        <button type="submit" value="' . $data1['id'] . '" name="del_ppr">Delete</button></td>
                             </tr>';
                     }
                 }
@@ -93,9 +98,12 @@
         }
         ?>
 
-        
+
     </main>
-    <footer class="bg-gray-800 text-white text-center p-5 fixed bottom-0 w-full">This is the site footer</footer>
+    <!-- <footer class="bg-gray-800 text-white text-center p-5 fixed bottom-0 w-full">This is the site footer</footer> -->
+    <?php
+    include 'footer.php';
+    ?>
 </body>
 
 </html>

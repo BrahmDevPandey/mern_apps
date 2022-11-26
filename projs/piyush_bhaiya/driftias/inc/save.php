@@ -1,5 +1,5 @@
 <?php
- $pdfData= $_POST['pdfData']; 
+$pdfData= $_POST['pdfData']; 
 
 if(isset($pdfData)){
 // echo $pdfData;

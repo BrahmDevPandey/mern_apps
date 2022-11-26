@@ -227,7 +227,7 @@ include 'student_dashboard_header.php';
       </a>
     </section>
     <?php
-    if (isset($_GET['gstype1'])) { ?>
+if (isset($_GET['gstype1'])) { ?>
     <div class="input-page mb-5 " id="input-page">
       <div class="flex  justify-center items-center w-full choose-file">
         <label for="dropzone-file"
@@ -247,9 +247,9 @@ include 'student_dashboard_header.php';
       </div>
     </div>
     <?php
-    }
+}
 
-    ?>
+?>
 
     <div class="pdf-page" id="pdf-page">
       <div class="create-pdf" id="create-pdf">
@@ -313,45 +313,45 @@ include 'student_dashboard_header.php';
     const pdfDoc = await PDFLib.PDFDocument.create();
     for (var i = 0; i < data.length; i++) {
       const jpgUrl = data[i].list.result;
-      //   console.log(jpgUrl);
       const mime_type = data[i].fileType;
+      console.log(mime_type);
       const jpgImageBytes = await fetch(jpgUrl).then((res) => res.arrayBuffer());
-      if (mime_type === "image/jpg") {
-        const jpgImage = await pdfDoc.embedJpg(jpgImageBytes);
-        const page = pdfDoc.addPage();
-        page.setSize(width, height);
-        page.drawImage(jpgImage, {
-          x: 20,
-          y: 50,
-          width: page.getWidth() - 40,
-          height: page.getHeight() - 100,
-        })
+      if(mime_type === "image/jpg") {
+          const jpgImage = await pdfDoc.embedJpg(jpgImageBytes);
+          const page = pdfDoc.addPage();
+          page.setSize(width, height);
+          page.drawImage(jpgImage, {
+            x: 20,
+            y: 50,
+            width: page.getWidth() - 40,
+            height: page.getHeight() - 100,
+          })
       }
-      else if (mime_type === "image/png") {
-        const pngImage = await pdfDoc.embedPng(jpgImageBytes);
-        const page = pdfDoc.addPage();
-        page.setSize(width, height);
-        page.drawImage(pngImage, {
-          x: 20,
-          y: 50,
-          width: page.getWidth() - 40,
-          height: page.getHeight() - 100,
-        })
+      else if(mime_type === "image/png") {
+          const pngImage = await pdfDoc.embedPng(jpgImageBytes);
+          const page = pdfDoc.addPage();
+          page.setSize(width, height);
+          page.drawImage(pngImage, {
+            x: 20,
+            y: 50,
+            width: page.getWidth() - 40,
+            height: page.getHeight() - 100,
+          })
       }
     }
     const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
     var result = pdfDataUri;
-    var finalurl = result.split(',')[1]
+    var finalurl=result.split(',')[1]
     $.ajax({
-      type: 'POST',
-      url: "save.php",
-      data: { pdfData: finalurl },
-      dataType: "JSON",
-      success: function (resultData) { alert("File Uploaded Successfully") }
+        type: 'POST',
+        url: "save.php",
+        data: { pdfData: finalurl},
+        dataType: "JSON",
+        success: function(resultData) { alert("File Uploaded Successfully") }
     });
-    const pdfBytes = await pdfDoc.save();
-    download(pdfBytes, pdfName.slice(0, -4), "application/pdf");
-    setTimeout(backToHomepage, 1000);
+    const pdfBytes= await pdfDoc.save();
+    // download(pdfBytes, pdfName.slice(0,-4), "application/pdf");
+    setTimeout(backToHomepage,1000);
   }
   function convertToPDF() {
     createPDF.innerHTML = '';

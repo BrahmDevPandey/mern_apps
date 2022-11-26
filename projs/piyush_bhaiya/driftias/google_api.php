@@ -1,6 +1,5 @@
-
 <?php
-
+ if(session_start());
 require_once 'vendor/autoload.php';
 $google_client = new Google_Client();
 $google_client->setClientId('556668182121-3b70s8itst7s480565v7d2r5gpcmst8h.apps.googleusercontent.com');
@@ -12,7 +11,7 @@ $login_button = '';
 if(isset($_GET["code"]))
 {
   $token = $google_client->fetchAccessTokenWithAuthCode($_GET["code"]);
- session_start();
+
  
  if(!isset($token['error']))
  {

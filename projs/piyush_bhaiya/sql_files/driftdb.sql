@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `badge_counter` (
   `view_status` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `badge_counter`
@@ -49,7 +49,7 @@ CREATE TABLE `enquiry` (
   `name` varchar(20) DEFAULT NULL,
   `email` varchar(30) DEFAULT NULL,
   `mobile` varchar(10) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -62,7 +62,7 @@ CREATE TABLE `feedback` (
   `email` varchar(30) DEFAULT NULL,
   `answer` varchar(50) DEFAULT NULL,
   `id` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -74,7 +74,7 @@ CREATE TABLE `feedback_badge_counter` (
   `name` varchar(20) DEFAULT NULL,
   `email` varchar(30) DEFAULT NULL,
   `view_status` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -89,7 +89,7 @@ CREATE TABLE `question_paper` (
   `year` int NOT NULL,
   `content` varchar(500) NOT NULL,
   `file_url` varchar(128) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `question_paper`
@@ -113,7 +113,7 @@ CREATE TABLE `user_mngt` (
   `email` varchar(64) NOT NULL,
   `user_type` text NOT NULL,
   `password` varchar(16) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `user_mngt`
@@ -133,7 +133,7 @@ CREATE TABLE `wps3_registration` (
   `name` varchar(20) DEFAULT NULL,
   `email` varchar(30) DEFAULT NULL,
   `mobile` varchar(10) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Indexes for dumped tables
