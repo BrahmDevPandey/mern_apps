@@ -7,52 +7,67 @@
     include 'mail.php';
     //Include Configuration File
     include('google_api.php');
-    
+    //Add user
     if(isset($_POST['reg_btn'])){
         $name=$_POST['name'];
         $email=$_POST['email'];
         $mobile=$_POST['phone'];
         $pass=$_POST['password'];
-        $rs=mysqli_query($con,"select * from user_mngt where email='$email'");
-        if(mysqli_num_rows($rs)){
-            echo '<script>alert("Email already registered...");location.href="inc/student_dashboard_index.php";</script>';
-        }else{
-            $qr="insert into user_mngt (name,email,mobile,password,image) values('$name','$email','$mobile','$pass','https://driftias.prabhamedia.com/user_image/user_img.png')";
-            if(mysqli_query($con,$qr)){
+        
+        $qr="insert into user_mngt (name,email,mobile,password,image) values('$name','$email','$mobile','$pass','https://driftias.prabhamedia.com/user_image/user_img.png')";
+        if(mysqli_query($con,$qr)){
+            $rs=mysqli_query($con,"select * from user_mngt where email='$email'");
+            if(mysqli_num_rows($rs)){
+                $data=mysqli_fetch_array($rs);
+                $_SESSION['user_first_name'] = $data['name'];
+                $_SESSION['user_email_address'] = $data['email'];
+                $_SESSION['user_image'] = $data['image'];
                 echo '<script>alert("Registration success...");location.href="inc/student_dashboard_index.php";</script>';
-                unset($_SESSION['em']);
-            }else
-                echo '<script>alert("Error...");location.href="index.php";</script>';
-        }
+            }
+        }else
+            echo '<script>alert("Error...");location.href="index.php";</script>';
         
     }
-    
+    //Add enquiry
     if(isset($_POST['cnt_btn'])){
         $email=$_POST['c_email'];
         $mobile=$_POST['c_mobile'];
         $subj=$_POST['c_subj'];
         $msg=$_POST['c_msg'];
-        $qr="insert into enquiry (email,mobile,subject,message) values('$email','$mobile','$subj','$msg')";
-        if(mysqli_query($con,$qr))
-            echo '<script>alert("Message send \nWe will contact you soon...");location.href="index.php";</script>';
-        else
-            echo '<script>alert("Error...");location.href="index.php";</script>';
+        if(!isValidEmail($email) || !isValidPhone($phone)) {
+            echo '<script>alert("Error. Enter valid Email and Phone number.");location.href="index.php";</script>';
+        } else {
+            $qr="insert into enquiry (email,mobile,subject,message) values('$email','$mobile','$subj','$msg')";
+            if(mysqli_query($con,$qr))
+                echo '<script>alert("Message send \nWe will contact you soon...");location.href="index.php";</script>';
+            else
+                echo '<script>alert("Error...");location.href="index.php";</script>';
+        }   
     }
-
+    //Send otp to mail
     if (isset($_POST['email'])) {
         $to = $_POST['email'];
         $msg = rand(1111, 9999);
-        $_SESSION['em']=$to;
+        $_SESSION['user_email_address']=$to;
         $_SESSION['cd']=$msg;
         smtp_mailer($to, "DriftIAS Alert", $msg);
-        echo "OTP send on your mail..";
+        echo "OTP send on your mail...";
     }
+    //Verify otp
     if(isset($_POST['otp'])){
         if($_POST['otp']==$_SESSION['cd']){
             unset($_SESSION['cd']);
-            echo "";
+            $rs=mysqli_query($con,"select * from user_mngt where email='".$_SESSION['user_email_address']."'");
+            if(mysqli_num_rows($rs)){
+                $data=mysqli_fetch_array($rs);
+                $_SESSION['user_first_name'] = $data['name'];
+                $_SESSION['user_email_address'] = $data['email'];
+                $_SESSION['user_image'] = $data['image'];
+                echo "inc/student_dashboard_index.php";
+            }else
+                echo "register.php";
         }else 
-            echo "OTP not match...";
+            echo "";
     }
     
         //Update header
@@ -200,5 +215,14 @@
       }else
         echo '<script>alert("Error...");location.href="dyn_index.php";</script>';
     }
-
+    //function to validate the email entered by the user
+    function isValidEmail($email) {
+        return filter_var($email, FILTER_VALIDATE_EMAIL) 
+            && preg_match('/@.+\./', $email);
+    }
+    
+    //function to validate the phone number entered by the user
+    function isValidPhone($phone) {
+        return preg_match('/^[0-9]{10}+$/', $phone);
+    }
 ?>

@@ -18,7 +18,7 @@
           while ($data=mysqli_fetch_array($exc)) {
             echo '<div class="flex flex-col rounded-lg border border-gray-100 px-4 py-8 text-center">            
               <div class="order-last text-lg font-medium text-gray-500 justify-center flex">
-                <a href="'.$data['pdf'].'">
+                <a href="'.$data['pdf'].'" target="_blank">
                   <img src="image/pdf_icon.svg" width="64 " height="64px"></a>
               </div>
             </div>';

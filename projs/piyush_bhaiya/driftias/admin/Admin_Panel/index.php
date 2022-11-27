@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <title>Medhaj Astro-Dashboard Admin</title>
+    <title>DriftIAS Admin Panel</title>
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -27,9 +27,8 @@
             <!-- Main Content -->
             <div id="content">
                 <?php include 'topbar.php'; ?>
-                <!-- Begin Page Content -->
                 <div class="container-fluid">
-                    <!-- Page Heading -->
+                    <!-- Begin Page Content -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
                         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
@@ -64,34 +63,7 @@
                                 </div>
                             </a>
                         </div>
-                        <!-- Pending Requests Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <a href="feedback.php">
-                                <div class="card border-left-warning shadow h-100 py-2">
-                                    <div class="card-body">
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col mr-2">
-                                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                    Faq Questions </div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                    <?php
-                                                    $q = "select * from feedback";
-                                                    $r = mysqli_query($con, $q);
-                                                    $rows = mysqli_num_rows($r);
-                                                    echo $rows;
-                                                    ?>
 
-
-                                                </div>
-                                            </div>
-                                            <div class="col-auto">
-                                                <i class="fas fa-comments fa-2x text-gray-300"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
                         <!-- Earnings (Monthly) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
                             <a href="users.php">
@@ -100,7 +72,7 @@
                                         <div class="row no-gutters align-items-center">
                                             <div class="col mr-2">
                                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                    Create User</div>
+                                                    All users</div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800">
                                                     <?php
                                                     $q = "select * from user_mngt";
@@ -122,7 +94,7 @@
                         <!-- Earnings (Monthly) Card Example -->
 
                         <div class="col-xl-3 col-md-6 mb-4">
-                            <a href="registraion.php">
+                            <a href="registration.php">
                                 <div class="card border-left-info shadow h-100 py-2">
                                     <div class="card-body">
                                         <div class="row no-gutters align-items-center">
@@ -146,16 +118,14 @@
                                         </div>
                                     </div>
                                 </div>
+                            </a>
                         </div>
-                        </a>
                     </div>
                 </div>
-                <!-- /.container-fluid -->
+                <!-- End of Main Content -->
             </div>
-            <!-- End of Main Content -->
-
             <!-- Footer -->
-            <?php include 'footer.php'; ?>
+            <?php include 'footer.php' ?>
             <!-- End of Footer -->
         </div>
         <!-- End of Content Wrapper -->
@@ -198,26 +168,43 @@
     <!-- Page level plugins -->
     <script src="vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
-    <script src="js/imp.js"></script>
+
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
 </body>
 <script>
     $(document).ready(function () {
-        $('#admin_user_add').submit(function (e) {
-            e.preventDefault();
-            $.ajax({
-                url: "fetch.php",
-                method: "POST",
-                data: $(this).serialize(),
-                success: function (data) {
-                    alert(data);
-                    $('#admin_user_add').trigger("reset");
-                }
-            });
+        $('#alertsDropdown').click(function () {
 
-        });
+        })
     });
+    function load_unseen_notification(view) {
+
+        $.ajax({
+            url: "fetch.php",
+            method: "POST",
+            data: { view: view },
+            success: function (data) {
+                var obj = JSON.parse(data);
+                var length = Object.keys(obj).length;
+                var html = "";
+
+                while (length > 0) {
+                    var val = obj[length - 1];
+                    var name = val["name"];
+                    html += "<a class='dropdown-item d-flex align-items-center  class='card'' href='#' style='color:blue'>" + name.toUpperCase() + " &nbsp;Visited Website</a>";
+                    $('#noticication').html(html);
+                    length--;
+                    // break;
+                }
+            }
+        });
+
+    }
+    setInterval(function () {
+        load_unseen_notification('YES');
+    }, 5000);
+
 </script>
 
 </html>

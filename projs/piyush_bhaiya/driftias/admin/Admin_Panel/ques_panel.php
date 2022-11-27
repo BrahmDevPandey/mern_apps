@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <title>Medhaj Astro-Dashboard Admin</title>
+    <title>Medhaj Astro-Question Paper</title>
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -57,27 +57,23 @@
                                             <th>Year</th>
                                             <th>Content</th>
                                             <th>Content PDF</th>
-                                            <th>Other PDF</th>
                                             <th>Operation</th>
                                             
                                         </tr>
                                     </thead>
-                                    
                                     <tbody>';
-                                    $q="select * from question_paper where category='".$data['category']."'order by year";
+                                    $q="select * from question_paper where category='".$data['category']."'order by year desc";
                                     if($r=mysqli_query($con,$q)){
-                                       while($data1=mysqli_fetch_assoc($r)){
+                                       while($data=mysqli_fetch_assoc($r)){
                                             echo '<tr>
-                                                    <td>'.$data1['title'].'</td>
-                                                    <td>'.$data1['year'].'</td>
-                                                    <td>'.$data1['content'].'</td>
-                                                    <td><a href="'.$data1['content_url'].'">Show</a>        <button type="submit" value="'.$data1['id'].'" name="upd_cnt_pdf">Update</button></td>
-                                                    <td><a href="'.$data1['file_url'].'">Show</a>        <button type="submit" value="'.$data1['id'].'" name="upd_qus_pdf">Update</button></td>
-                                                    <td><button type="submit" value="'.$data1['id'].'" name="del_ppr">Delete</button></td>
-
+                                                    <td>'.$data['title'].'</td>
+                                                    <td>'.$data['year'].'</td>
+                                                    <td>'.$data['content'].'</td>
+                                                    <td><a href="'.$data['cnt_url'].'">Show</a></td>
+                                                    <td><button type="button" onclick="'."if(confirm('Sure you want to update'))location.href='update_question.php?upd_ques=".$data['id']."'".';">Update</button>
+                                                        <button type="button" onclick="'."if(confirm('Sure you want to delete'))location.href='validation.php?del_ques=".$data['id']."'".';">Delete</button></td>
 
                                             </tr>';
-                                             
                                                
                                         }
                                     }

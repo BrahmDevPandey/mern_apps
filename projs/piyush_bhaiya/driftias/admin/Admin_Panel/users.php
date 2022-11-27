@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <title>Medhaj Astro-Dashboard Admin</title>
+    <title>DriftIAS Admin Panel</title>
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -30,7 +30,7 @@
                     <!-- Content Row -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#myModal"><i
-                                class="fas fa-users fa-sm text-white-50"></i> Add Users</a>
+                                class="fas fa-users fa-sm text-white-50"></i> Add User</a>
 
 <!-- Button trigger modal -->
 
@@ -94,16 +94,16 @@
                                         <tr>
                                             <th>Name</th>
                                             <th>Email</th>
-                                            <th>User Type</th>
-                                            
+                                            <th>Mobile</th>
+                                            <th>Operation</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                     <tr>
                                             <th>Name</th>
                                             <th>Email</th>
-                                            <th>User Type</th>
-                                            
+                                            <th>Mobile</th>
+                                            <th>Operation</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -119,7 +119,9 @@
                                                                    <tr>
                                                                  <td><?php echo $data['name'];?></td>
                                                                  <td><?php echo $data['email'];?></td>
-                                                                 <td><?php echo $data['user_type'];?></td>
+                                                                 <td><?php echo $data['mobile'];?></td>
+                                                                 <td><button type="button" onclick="if(confirm('Sure you want to update'))location.href='update_admin.php?upd_usr=<?php echo $data['id'];?>';">Update</button>
+                                                                    <button type="button" onclick="if(confirm('Sure you want to delete'))location.href='validation.php?del_usr=<?php echo $data['id'];?>';">Delete</button></td>
                                                                  </tr>
                                                                   <?php
                                                                    
@@ -143,7 +145,7 @@
             <footer class="sticky-footer bg-dark text-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Medhaj Astro 2022</span>
+                        <span>Copyright &copy; DriftIAS 2022</span>
                     </div>
                 </div>
             </footer>

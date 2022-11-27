@@ -1,7 +1,7 @@
 
 <nav class="bg-white  px-2 sm:px-4 py-2.5 dark:bg-gray-600 fixed w-full z-20 top-0 left-0 border-b border-gray-300 dark:border-gray-600 navbar fixed-top text-red-900">
   <div class="container flex flex-wrap justify-between items-center mx-auto">
-  <a href="index.php" class="flex items-center">
+  <a href="../index.php" class="flex items-center">
       <img src="https://ik.imagekit.io/d12g1stmy/drift_IAS.png?ik-sdk-version=javascript-1.4.3&updatedAt=1668408116341" class="mr-3 h-10 sm:h-15" alt="DiftIAS Logo" title="DriftIAS">
       <!-- <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">DriftIAS</span> -->
   </a>

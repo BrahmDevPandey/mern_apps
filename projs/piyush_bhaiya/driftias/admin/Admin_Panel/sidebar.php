@@ -2,10 +2,10 @@
 <ul class="navbar-nav  sidebar sidebar-dark accordion bg-gray-900" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
         <div class="sidebar-brand-icon rotate-n-15">
         </div>
-        <div class="sidebar-brand-text mx-3">Medhaj Astro </div>
+        <div class="sidebar-brand-text mx-3"><img src="img/logo-nobg.png" style="max-width: 100%; object-fit: contain;" alt="DriftIAS Logo"></div>
     </a>
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
@@ -21,7 +21,7 @@
     <li class="nav-item">
         <a class="nav-link" href="ques_panel.php">
             <i class="fa fa-user-plus" aria-hidden="true"></i>
-            <span>Questions Papers</span></a>
+            <span>Question Papers</span></a>
     </li>
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
@@ -45,11 +45,12 @@
             <span>All Users</span></a>
 
     </li>
+    <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
     <li class="nav-item">
-        <a class="nav-link" href="feedback.php">
+        <a class="nav-link" href="admins.php">
             <i class="fa fa-user" aria-hidden="true"></i>
-            <span>FAQs</span></a>
+            <span>All Admin</span></a>
 
     </li>
     <hr class="sidebar-divider d-none d-md-block">

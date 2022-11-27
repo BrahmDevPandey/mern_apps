@@ -4,7 +4,7 @@ $html='Msg';
 
 function smtp_mailer($to,$subject, $msg){
 	$mail = new PHPMailer(); 
-	$mail->SMTPDebug  = 3;
+// 	$mail->SMTPDebug  = 3;
 	$mail->IsSMTP(); 
 	$mail->SMTPAuth = true; 
 	$mail->SMTPSecure = 'tls'; 
@@ -24,7 +24,7 @@ function smtp_mailer($to,$subject, $msg){
 		'allow_self_signed'=>false
 	));
 	if(!$mail->Send()){
-		echo $mail->ErrorInfo;
+// 		echo $mail->ErrorInfo;
 	}else{
 		return 'Sent';
 	}

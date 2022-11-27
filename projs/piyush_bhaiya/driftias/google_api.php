@@ -1,5 +1,5 @@
 <?php
- if(session_start());
+session_start();
 require_once 'vendor/autoload.php';
 $google_client = new Google_Client();
 $google_client->setClientId('556668182121-3b70s8itst7s480565v7d2r5gpcmst8h.apps.googleusercontent.com');
@@ -24,10 +24,14 @@ if(isset($_GET["code"]))
   $_SESSION['user_email_address'] = $data['email'];
   $_SESSION['user_gender'] = $data['gender'];
   $_SESSION['user_image'] = $data['picture'];
+ 
  }
+ 
 }
 if(!isset($_SESSION['access_token']))
 {
  $login_button = $google_client->createAuthUrl();
 }
+
+    
 ?>

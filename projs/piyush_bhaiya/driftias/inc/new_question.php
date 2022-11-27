@@ -1,9 +1,4 @@
-<?php 
-session_start();
-if(!isset($_SESSION['access_token'])){
-    header('location:index.php');
-}
-?>
+
 <!doctype html>
 <html>
 <head>
@@ -20,13 +15,13 @@ include 'student_dashboard_header.php' ;
 <body>
 <section class="px-2 py-32 md:px-0">
 <div class="flex justify-center ">
-<div class=" pb-2 mb-10 mx-auto lg:max-w-lg h-auto sm:h-auto bg-white rounded-lg border border-gray-200 shadow-md lg:p-5 sm:py-10 sm:p-10 md:p-10 dark:bg-gray-800 dark:border-gray-700">
+<div class=" pb-2 mb-10 mx-auto lg:max-w-lg h-auto sm:h-auto bg-white rounded-lg border border-gray-200 shadow-md lg:p-5 sm:py-10 sm:p-10 md:p-10 dark:bg-gray-800 dark:border-gray-700 p-3">
 <span class="text-red-900 font-semibold ">Welcome to your Free Trial</span><br>
 You can submit 2 GS questions and 1 Optional questions for demo evaluation
 </div>
 </div>
 <!-- Section 5 --> 
-<section class="w-full   pb-7 md:pt-2 md:pb-24 flex justify-center">
+<section class="w-full grid gap-4 pb-7 md:pt-2 md:pb-24 flex justify-center">
 <a type="button" href="course_selected.php?question_type=GS" class="shadow-lg text-red-900 border-2   bg-none hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm px-24 py-10 text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2">
 GS Questions
 </a>

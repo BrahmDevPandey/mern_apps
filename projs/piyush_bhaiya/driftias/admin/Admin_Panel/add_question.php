@@ -13,7 +13,7 @@
     <link href='https://fonts.googleapis.com/css?family=Philosopher' rel='stylesheet'>
     <!-- Custom styles for this template-->
     <link type="text/css" href="sample/css/sample.css" rel="stylesheet" media="screen" />
-    <title>Add Questions</title>
+    <title>DriftIAS Admin Panel</title>
 
     <!-- from piyush bhaiya -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -52,7 +52,7 @@
 
             <!-- Main Content -->
             <div id="content">
-                <?php include 'topbar.php'; ?>
+                <?php include 'topbar.php';?>
 
                 <!-- Begin Page Content -->
                 <div>
@@ -71,7 +71,7 @@
                                     <div class="md:w-2/3">
                                         <input
                                             class="bg-white appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                                            id="inline-full-name" type="text" name="title">
+                                            id="inline-full-name" type="text" name="title" required>
                                     </div>
                                 </div>
                                 <div class="md:flex md:items-center mb-6">
@@ -82,9 +82,9 @@
                                         </label>
                                     </div>
                                     <div class="md:w-2/3">
-                                        <input
+                                        <input type="text" pattern="[0-9]{4}" title="Enter year in 4 digit" 
                                             class="bg-white appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                                            id="year" type="number" name="year">
+                                            id="year" name="year" required>
                                     </div>
                                 </div>
                                 <div class="md:flex md:items-center mb-6">
@@ -95,10 +95,16 @@
                                         </label>
                                     </div>
                                     <div class="md:w-2/3">
-                                        <input
-                                            class="bg-white appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                                            id="subject-category" type="text" name="sub_cat">
+                                            <select class="bg-white appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                                            id="subject-category" name="sub_cat" required>
+                                                <option></option>
+                                                <option>History</option>
+                                                <option>Geography</option>
+                                                <option>Polity</option>
+                                                <option>Current Affairs</option>
+                                        </select>
                                     </div>
+                                    <button type="button" onclick="addCategory()" class="shadow bg-purple-500 hover:bg-purple-900 focus:shadow-outline focus:outline-none text-white py-2 px-4 mx-2 font-small rounded">Add category</button>
                                 </div>
                                 <div class="md:flex md:items-center mb-6">
                                     <div class="md:w-1/3">
@@ -110,16 +116,19 @@
                                     <div class="md:w-2/3">
                                         <input
                                             class="bg-white appearance-none border-2 border-gray-200 rounded w-auto py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                                            id="pdf-attachment" type="file" name="files" accept="*">
+                                            id="pdf-attachment" type="file" name="files" accept="*" >
                                     </div>
+                                </div>
+                                <div class="md:flex md:items-center mb-3">
+                                    <label class="text-gray-500 font-bold md:text-center mb-0 md:mb-0 pr-1">OR</label>
                                 </div>
                                 <div class="md:flex md:items-center mb-6">
                                     <div class="">
                                         <label class="text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-                                            for="main-content">
+                                            for="editor">
                                             Enter content
                                         </label>
-                                        <textarea class="centered" id="editor" name="content"></textarea>
+                                        <textarea class="centered" id="editor" name="content" ></textarea>
                                     </div>
                                 </div>
                                 <div class="md:flex md:items-center">
@@ -146,7 +155,7 @@
             <footer class="sticky-footer bg-gray-900 text-white w-full">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Medhaj Astro 2022</span>
+                        <span>Copyright &copy; DriftIAS 2022</span>
                     </div>
                 </div>
             </footer>

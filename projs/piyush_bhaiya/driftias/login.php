@@ -47,19 +47,12 @@ if (isset($_GET["code"])) {
         if (!empty($data['picture'])) {
             $_SESSION['user_image'] = $data['picture'];
         }
-        
-        if(isset($_SESSION['email'])){
-        echo "insert into user_mngt (name,email,mobile,password,image) values('".$_SESSION['user_first_name']." ".$_SESSION['user_last_name']."','".$_SESSION['user_email_address']."','','','".$_SESSION['user_image']."')";
-        // if(mysqli_query($con,$qr)){
-        //     echo "<script>alert('You are registered...')</script>";
-        // }
-        }  
+        echo "<script>alert('1111111')</script>";
     }
 }
 
 
 if (!isset($_SESSION['access_token'])) {
-
     $login_button = $google_client->createAuthUrl();
 }
 
@@ -114,7 +107,7 @@ if (!isset($_SESSION['access_token'])) {
                     <img src="https://ik.imagekit.io/d12g1stmy/drift_IAS.png?ik-sdk-version=javascript-1.4.3&updatedAt=1668408116341"
                         alt="DriftIAS" style="width: 150px;">
                 </div>
-                <form class="space-y-6" action="#" method="POST">
+                <div class="space-y-6">
                     <div class="flex flex-row justify-center">
 
                         <a href="<?php echo $login_button; ?>"
@@ -149,7 +142,7 @@ if (!isset($_SESSION['access_token'])) {
                     <button type="button" onclick="send_otp()" id="send_otp_btn"
                         class="w-full text-white bg-red-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">SEND
                         OTP TO MAIL</button>
-                </form>
+                </div>
             </div>
         </div>
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 p-5" style="display: none;" id="otp-div">
@@ -197,9 +190,9 @@ if (!isset($_SESSION['access_token'])) {
                 cache: false,
                 success: function(res1){
                     if(res1=="")
-                        onSuccessfulLogin();
+                        alert("OTP not match...");
                     else
-                        alert(res1);
+                        onSuccessfulLogin(res1);
                 }
             });
         }
@@ -214,8 +207,8 @@ if (!isset($_SESSION['access_token'])) {
             
         }
 
-        function onSuccessfulLogin() {
-            window.location.href = "register.php";
+        function onSuccessfulLogin(url) {
+            window.location.href = url;
         }
     </script>
 </div>

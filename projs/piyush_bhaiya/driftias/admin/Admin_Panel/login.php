@@ -28,7 +28,7 @@ if(isset($_POST['login_asadminstrator'])){
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Medhaj Astro Admin Panel</title>
+  <title>DriftIAS Admin Panel</title>
   <!-- ========== Css Files ========== -->
   <link href="https://medhajnews.in/writerz/css/root.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
