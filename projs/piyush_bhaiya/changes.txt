@@ -1,0 +1,8 @@
+1. user profile not available
+2. pdf not being uploaded to server
+3. no option to view previously updated pdfs
+4. update profile not available to user
+5. clicking on 'try it free" on home screen redirects to some other page
+6. most of menu items on user dashboard not functional
+7. user image not showing on upload pdf page
+8. dark theme support not available

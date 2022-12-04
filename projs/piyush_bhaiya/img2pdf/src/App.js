@@ -1,6 +1,6 @@
 import React, { useState, ChangeEventHandler } from "react";
 import jsPDF from "jspdf";
-import "./App.css";
+// import "./App.css";
 import { useEffect } from "react";
 
 // New class with additional fields for Image
@@ -109,7 +109,7 @@ const generatePdfFromImages = (images) => {
 
   // Creates a PDF and opens it in a new browser tab.
   const pdfURL = doc.output("bloburl");
-  window.open(pdfURL, "_self");
+  window.open(pdfURL, "_blank");
 };
 
 const App = () => {
@@ -153,6 +153,7 @@ const App = () => {
     uploadedImages.forEach((image) => {
       URL.revokeObjectURL(image.src);
     });
+    // window.location.reload();
   }, [setUploadedImages, uploadedImages]);
 
   const handleGeneratePdfFromImages = React.useCallback(() => {
@@ -160,28 +161,49 @@ const App = () => {
     cleanUpUploadedImages();
   }, [uploadedImages, cleanUpUploadedImages]);
 
+  const deleteImage = (src) => {
+    const newList = uploadedImages.filter((img) => img.src !== src);
+    setUploadedImages(newList);
+  };
+
   return (
     <div onDrop={handleDrop}>
-      <div className="h1-text">Upload your images</div>
-      <div className="images-container" id="file-container" onDrop={handleDrop}>
+      <div className="text-[30px] font-bold text-center">
+        Upload your images
+      </div>
+      <div
+        className="flex w-[95%] h-[400px] max-h-[40vh] overflow-x-auto m-5 shadow-2xl bg-gray-100 border-gray-600 border-solid rounded-sm box-border"
+        id="file-container"
+        onDrop={handleDrop}
+      >
         {uploadedImages.length > 0 ? (
           uploadedImages.map((img) => (
-            <img
-              key={img.src}
-              src={img.src}
-              alt={"Image of " + img.name}
-              className="uploaded-image"
-            />
+            <div key={img.src} className="flex-shrink-0 text-center mx-2 my-3">
+              <button onClick={() => deleteImage(img.src)}>
+                <i className="fa fa-trash"></i>
+              </button>
+              <img
+                src={img.src}
+                alt={"Image of " + img.name}
+                className="max-h-[90%] h-[90%] rounded-sm"
+              />
+              <label>{img.name}</label>
+            </div>
           ))
         ) : (
-          <div onDrop={handleDrop} className="align-center">
-            Upload some images...
+          <div
+            onDrop={handleDrop}
+            className="flex align-center text-center m-auto"
+          >
+            <p className="w-max h-min text-xl">Upload some images...</p>
           </div>
         )}
       </div>
-      <div className="buttons-container">
+      <div className="text-center my-4">
         <label htmlFor="file-input">
-          <span className="button bg-purple-600">Upload Images</span>
+          <span className="p-2 py-3 text-lg rounded-md bg-red-400 mx-2 my-4">
+            Upload Images
+          </span>
           <input
             type="file"
             id="file-input"
@@ -195,7 +217,7 @@ const App = () => {
         <button
           onClick={handleGeneratePdfFromImages}
           disabled={uploadedImages.length === 0}
-          className="button bg-purple-600"
+          className="p-2 text-lg rounded-md bg-red-400 disabled:bg-gray-400 disabled:text-white mx-2 my-4"
         >
           Generate PDF
         </button>
