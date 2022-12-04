@@ -1,7 +1,8 @@
 import React, { useState, ChangeEventHandler } from "react";
 import jsPDF from "jspdf";
-// import "./App.css";
+import axios from "axios";
 import { useEffect } from "react";
+import $ from "jquery";
 
 // New class with additional fields for Image
 class CustomImage extends Image {
@@ -109,7 +110,46 @@ const generatePdfFromImages = (images) => {
 
   // Creates a PDF and opens it in a new browser tab.
   const pdfURL = doc.output("bloburl");
-  window.open(pdfURL, "_blank");
+  savePdfToServer(pdfURL);
+};
+
+const savePdfToServer = (pdfURL) => {
+  var xhr = new XMLHttpRequest();
+  xhr.responseType = "blob";
+
+  xhr.onload = function () {
+    var recoveredBlob = xhr.response;
+
+    var reader = new FileReader();
+
+    reader.onload = function () {
+      var blobAsDataUrl = reader.result;
+      blobAsDataUrl = blobAsDataUrl.substring(blobAsDataUrl.indexOf(",") + 1);
+      let axiosConfig = {
+        headers: {
+          "Content-Type": "application/json;",
+          "Access-Control-Allow-Origin": "*",
+        },
+      };
+
+      $.ajax({
+        type: "POST",
+        url: "http://localhost:4000/save.php",
+        data: { pdfData: blobAsDataUrl },
+        success(data) {
+          alert("Pdf saved successfully.");
+          window.location.reload();
+        },
+        error(data) {
+          alert("Error: " + data);
+        },
+      });
+    };
+    reader.readAsDataURL(recoveredBlob);
+  };
+
+  xhr.open("GET", pdfURL);
+  xhr.send();
 };
 
 const App = () => {
@@ -153,7 +193,6 @@ const App = () => {
     uploadedImages.forEach((image) => {
       URL.revokeObjectURL(image.src);
     });
-    // window.location.reload();
   }, [setUploadedImages, uploadedImages]);
 
   const handleGeneratePdfFromImages = React.useCallback(() => {
