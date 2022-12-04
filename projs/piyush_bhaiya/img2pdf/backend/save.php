@@ -8,11 +8,3 @@ if (isset($pdfData)) {
     }
 }
 ?>
-
-
-<!-- if (file.type === "application/pdf") {
-const blob = new Blob([file], { type: "application/pdf;" });
-const url = window.URL.createObjectURL(blob);
-savePdfToServer(url);
-return;
-} -->

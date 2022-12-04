@@ -18,6 +18,13 @@ class CustomImage extends Image {
 // Each image is loaded and an object URL is created.
 const fileToImageURL = (file) => {
   return new Promise((resolve, reject) => {
+    if (file.type === "application/pdf") {
+      const blob = new Blob([file], { type: "application/pdf;" });
+      const url = window.URL.createObjectURL(blob);
+      savePdfToServer(url);
+      return;
+    }
+
     const image = new CustomImage(file.type);
 
     image.onload = () => {
@@ -246,7 +253,7 @@ const App = () => {
             type="file"
             id="file-input"
             name="file-input"
-            accept="image/*"
+            accept="*"
             onChange={handleImageUpload}
             style={{ display: "none" }}
             multiple
