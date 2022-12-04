@@ -1,6 +1,5 @@
 import React, { useState, ChangeEventHandler } from "react";
 import jsPDF from "jspdf";
-import axios from "axios";
 import { useEffect } from "react";
 import $ from "jquery";
 
