@@ -1,12 +1,13 @@
 import React, { useState, ChangeEventHandler } from "react";
 import jsPDF from "jspdf";
 import { useEffect } from "react";
-import $ from "jquery";
+import $, { timers } from "jquery";
 
 // New class with additional fields for Image
 class CustomImage extends Image {
   constructor(mimeType) {
     super();
+    this.mimeType = mimeType;
   }
 
   // `imageType` is a required input for generating a PDF for an image.
@@ -103,15 +104,19 @@ const generatePdfFromImages = (images) => {
       height: image.height,
     });
 
-    doc.addPage();
-    doc.addImage(
-      image.src,
-      // Images are vertically and horizontally centered on the page.
-      (A4_PAPER_DIMENSIONS.width - imageDimensions.width) / 2,
-      (A4_PAPER_DIMENSIONS.height - imageDimensions.height) / 2,
-      imageDimensions.width,
-      imageDimensions.height
-    );
+    if (image.imageType === "svg+xml") {
+      alert("svg files not supported.");
+    } else {
+      doc.addPage();
+      doc.addImage(
+        image.src,
+        // Images are vertically and horizontally centered on the page.
+        (A4_PAPER_DIMENSIONS.width - imageDimensions.width) / 2,
+        (A4_PAPER_DIMENSIONS.height - imageDimensions.height) / 2,
+        imageDimensions.width,
+        imageDimensions.height
+      );
+    }
   });
 
   // Creates a PDF and opens it in a new browser tab.
@@ -140,14 +145,15 @@ const savePdfToServer = (pdfURL) => {
 
       $.ajax({
         type: "POST",
-        url: "http://localhost:4000/save.php",
+        url: "save.php",
         data: { pdfData: blobAsDataUrl },
         success(data) {
           alert("Pdf saved successfully.");
           window.location.reload();
         },
         error(data) {
-          alert("Error: " + data);
+          alert("Error saving the page. Please retry.");
+          window.location.reload();
         },
       });
     };
