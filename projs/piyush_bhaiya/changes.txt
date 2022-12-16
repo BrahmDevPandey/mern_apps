@@ -1,0 +1,5 @@
+1. remove autocomplete in password field of registration page
+2. remove gs questions box from course_selected.php
+3. pdf upload option on click of div
+4. uploading animation on pdf uplaod page
+
