@@ -26,7 +26,6 @@ const App = () => {
         const blob = new Blob([file], { type: "application/pdf;" });
         const url = window.URL.createObjectURL(blob);
         savePdfToServer(url);
-        return;
       }
 
       const image = new CustomImage(file.type);
@@ -144,7 +143,7 @@ const App = () => {
 
         $.ajax({
           type: "POST",
-          url: "save.php",
+          url: "http://localhost:4000/save.php",
           data: { pdfData: blobAsDataUrl },
           success(data) {
             setLoading(false);

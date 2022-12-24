@@ -1,239 +1,241 @@
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <script src="https://unpkg.com/pdf-lib@1.4.0"></script>
-        <script src="https://unpkg.com/downloadjs@1.4.7"></script>
-        <link rel="stylesheet" href="index.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <title>Img To PDF</title>
-    </head>
+<head>
+    <meta charset="utf-8" />
+    <script src="https://unpkg.com/pdf-lib@1.4.0"></script>
+    <script src="https://unpkg.com/downloadjs@1.4.7"></script>
+    <link rel="stylesheet" href="index.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
 
-    <body>
-        <div class="nav">
-            <span class="logo">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Img To PDF</title>
+</head>
+
+<body>
+    <div class="nav">
+        <span class="logo">
             <i class="fa fa-file-pdf-o"></i> DriftPDFBuilder
-            </span>
-            <div>
+        </span>
+        <div>
             <button onClick={embedImages()} id="convertBtn" convertBtn={convertBtn}> SAVE AS PDF</button>
             <button onClick={embedImages()} id="download">DOWNLOAD</button>
             <button id="upload-msg" type="button" disabled="true">UPLOAD FILES</button>
+        </div>
+    </div>
+
+    <div class="input-page" id="input-page">
+        <div class="choose-file">
+            <div class="add-more-files">
+                <div class="inp-container">
+                    <input type="file" id="upload-file" onChange={encodeImageFileAsURL(this)} multiple
+                        accept="image/*" />
+                    <h4 class="drop">
+                        DRAG & DROP OR
+                    </h4>
+                    <p>
+                        <i class="fa fa-file-image-o fa-4x img-icon"></i>
+
+                    </p>
+                    <label htmlFor="upload-file" id="custom-file">CHOOSE FILES</label>
+                </div>
             </div>
         </div>
+    </div>
 
-        <div class="input-page" id="input-page">
-            <div class="choose-file">          
-                <div class="add-more-files">
-                    <div class="inp-container">
-                        <input type="file" id="upload-file" onChange={encodeImageFileAsURL(this)} multiple accept="image/*"/>
-                        <h4 class="drop">
-                            DRAG & DROP OR
-                        </h4>
-                        <p >
-                            <i class="fa fa-file-image-o fa-4x img-icon"></i>
-                            
-                        </p>
-                        <label htmlFor="upload-file" id="custom-file">CHOOSE FILES</label>
-                    </div>
-                </div>            
-            </div>
+    <div class="pdf-page" id="pdf-page">
+        <div class="create-pdf" id="create-pdf">
+
         </div>
+    </div>
+    <iframe id="pdf" style="width: 100%; height: 100%;"></iframe>
+    </div>
 
-        <div class="pdf-page" id="pdf-page">             
-            <div class="create-pdf" id="create-pdf"> 
-                    
-            </div>
-        </div>
-        <iframe id="pdf" style="width: 100%; height: 100%;"></iframe>
-        </div>
+    <script>
+        var data = [];
+        var width = 620;
+        var height = 800;
+        var pdfName;
+        var fileName = '';
 
-        <script >
-            var data= [];
-var width= 620;
-var height= 800;
-var pdfName;
-var fileName= '';
+        const createPDF = document.getElementById('create-pdf');
 
-const createPDF= document.getElementById('create-pdf');
+        encodeImageFileAsURL = (element) => {
+            document.getElementById('input-page').style.display = 'none';
+            document.getElementById('pdf-page').style.display = 'inline-block';
 
-encodeImageFileAsURL= (element)=>{
-    document.getElementById('input-page').style.display= 'none';
-    document.getElementById('pdf-page').style.display= 'inline-block';
+            const length = element.files.length;
+            for (var i = 0; i < length; i++) {
+                let file = element.files[i];
+                let pdfname = element.files[0];
+                let reader = new FileReader();
+                reader.readAsDataURL(file);
 
-    const length= element.files.length;
-    for(var i=0;i<length;i++){
-        let file= element.files[i];
-        let pdfname= element.files[0];
-        let reader= new FileReader();
-        reader.readAsDataURL(file);
+                let obj = {
+                    list: reader,
+                    fileName: file.name,
+                    time: new Date().toString() + i
+                }
 
-        let obj= {
-            list: reader,
-            fileName: file.name,
-            time: new Date().toString() + i
+                reader.onloadend = () => {
+                    data = [...data, obj];
+                    pdfName = pdfname.name
+                }
+            }
+
+            setTimeout(convertToPDF, 1000);
+            document.getElementById('upload-file').value = null;
+            setTimeout(saveAsPDF, 1000);
         }
 
-        reader.onloadend= ()=>{
-            data= [...data,obj];
-            pdfName= pdfname.name
+
+        saveAsPDF = () => {
+            document.getElementById('upload-msg').style.display = 'none';
+            document.getElementById('convertBtn').style.display = 'inline-block';
         }
-    }
-
-    setTimeout(convertToPDF,1000);
-    document.getElementById('upload-file').value= null;
-    setTimeout(saveAsPDF,1000);
-}
 
 
-saveAsPDF= ()=>{
-    document.getElementById('upload-msg').style.display= 'none';
-    document.getElementById('convertBtn').style.display= 'inline-block';
-}
+        //delete item from pdf page
+        handleDelete = (e) => {
+            data = data.filter((item) => item.time !== e.currentTarget.id);
+            if (data.length == 0) {
+                location.reload();
+            }
+            else {
+                convertToPDF();
+            }
+        }
 
 
-//delete item from pdf page
-handleDelete= (e)=>{
-    data= data.filter((item)=>item.time!==e.currentTarget.id);
-    if(data.length==0){
-        location.reload();
-    }
-    else{
-        convertToPDF();
-    }
-}
+        //initiate file downloading
+        embedImages = async () => {
+            const pdfDoc = await PDFLib.PDFDocument.create();
+            for (var i = 0; i < data.length; i++) {
 
+                const jpgUrl = data[i].list.result;
+                console.log(jpgUrl);
+                const jpgImageBytes = await fetch(jpgUrl).then((res) => res.arrayBuffer());
 
-//initiate file downloading
-embedImages= async ()=>{
-    const pdfDoc= await PDFLib.PDFDocument.create();
-    for(var i=0;i<data.length;i++){
+                const jpgImage = await pdfDoc.embedJpg(jpgImageBytes);
+                //Add a blank page to the document
+                const page = pdfDoc.addPage();
 
-        const jpgUrl= data[i].list.result;
-        console.log(jpgUrl);
-        const jpgImageBytes= await fetch(jpgUrl).then((res) => res.arrayBuffer());
+                //set page size
+                page.setSize(width, height);
+                page.drawImage(jpgImage, {
+                    x: 20,
+                    y: 50,
+                    width: page.getWidth() - 40,
+                    height: page.getHeight() - 100,
+                })
+            }
+            const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
 
-        const jpgImage = await pdfDoc.embedJpg(jpgImageBytes);
-        //Add a blank page to the document
-        const page= pdfDoc.addPage();
-        
-        //set page size
-        page.setSize(width,height);
-        page.drawImage(jpgImage, {
-            x: 20,
-            y: 50,
-            width: page.getWidth()-40,
-            height: page.getHeight()-100,
-        })
-    }
-    const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
-  
-    document.getElementById('pdf').src = pdfDataUri;
-    var result = pdfDataUri;
-    var finalurl=result.split(',')[1]
-    // console.log(finalurl);
-     $.ajax({
-        type: 'POST',
-        url: "save.php",
-        data: { pdfData: finalurl},
-        dataType: "JSON",
-        success: function(resultData) { alert(resultData) }
-  });
+            document.getElementById('pdf').src = pdfDataUri;
+            var result = pdfDataUri;
+            var finalurl = result.split(',')[1]
+            // console.log(finalurl);
+            $.ajax({
+                type: 'POST',
+                url: "http://localhost:4000/save.php",
+                data: { pdfData: finalurl },
+                dataType: "JSON",
+                success: function (resultData) { alert(resultData) }
+            });
 
-    //save the padf pages
-    const pdfBytes= await pdfDoc.save();
-    // console.log(pdfBytes);
-    //download pdf file 
-    // var x= download(pdfBytes, pdfName.slice(0,-4), "application/pdf");
-    //back to home page after downloading file
-    // setTimeout(backToHomepage,1000);
-}
+            //save the padf pages
+            const pdfBytes = await pdfDoc.save();
+            // console.log(pdfBytes);
+            //download pdf file 
+            // var x= download(pdfBytes, pdfName.slice(0,-4), "application/pdf");
+            //back to home page after downloading file
+            // setTimeout(backToHomepage,1000);
+        }
 
-//display pdf images
-function convertToPDF(){
-    createPDF.innerHTML= '';
-    data.map((item,i)=>{
-        const fileItem= document.createElement('div');
-        fileItem.setAttribute('class','file-item');
+        //display pdf images
+        function convertToPDF() {
+            createPDF.innerHTML = '';
+            data.map((item, i) => {
+                const fileItem = document.createElement('div');
+                fileItem.setAttribute('class', 'file-item');
 
-        const modify= document.createElement('div');
-        modify.setAttribute('class','modify');
+                const modify = document.createElement('div');
+                modify.setAttribute('class', 'modify');
 
-        const button2= document.createElement('button');
-        button2.setAttribute('class','delete-btn');
-        button2.setAttribute('id',item.time);
-        const remove= document.createElement('i');
-        remove.setAttribute('class','fa fa-trash');
-        button2.appendChild(remove);
-        button2.addEventListener('click',(e)=>{
-            handleDelete(e);
-        });
+                const button2 = document.createElement('button');
+                button2.setAttribute('class', 'delete-btn');
+                button2.setAttribute('id', item.time);
+                const remove = document.createElement('i');
+                remove.setAttribute('class', 'fa fa-trash');
+                button2.appendChild(remove);
+                button2.addEventListener('click', (e) => {
+                    handleDelete(e);
+                });
 
-        modify.appendChild(button2);
+                modify.appendChild(button2);
 
-        fileItem.appendChild(modify);
+                fileItem.appendChild(modify);
 
-        const imgContainer= document.createElement('div');
-        imgContainer.setAttribute('class','img-container');
-        const img= document.createElement('img');
-        img.setAttribute('id','img');
-        img.src= item.list.result;
-        imgContainer.appendChild(img);
-        fileItem.appendChild(imgContainer);
+                const imgContainer = document.createElement('div');
+                imgContainer.setAttribute('class', 'img-container');
+                const img = document.createElement('img');
+                img.setAttribute('id', 'img');
+                img.src = item.list.result;
+                imgContainer.appendChild(img);
+                fileItem.appendChild(imgContainer);
 
-        const imgName= document
-        .createElement('p');
-        imgName.setAttribute('id','img-name');
-        imgName.innerHTML= item.fileName;
-        fileItem.appendChild(imgName);
+                const imgName = document
+                    .createElement('p');
+                imgName.setAttribute('id', 'img-name');
+                imgName.innerHTML = item.fileName;
+                fileItem.appendChild(imgName);
 
-        //fileItem is the child of createPDF
-        createPDF.appendChild(fileItem);
+                //fileItem is the child of createPDF
+                createPDF.appendChild(fileItem);
 
-    });
+            });
 
-    const addMoreFile= document.createElement('div');
-    addMoreFile.setAttribute('class','add-more-file');
+            const addMoreFile = document.createElement('div');
+            addMoreFile.setAttribute('class', 'add-more-file');
 
-    const addFile= document.createElement('div');
-    addFile.setAttribute('class','inp-cont');
+            const addFile = document.createElement('div');
+            addFile.setAttribute('class', 'inp-cont');
 
-    const input= document.createElement('input');
-    input.setAttribute('id','inp');
-    input.type= 'file';
-    input.multiple= 'true';
-    input.onchange= function(){
-      var x=  encodeImageFileAsURL(this);
-    }
+            const input = document.createElement('input');
+            input.setAttribute('id', 'inp');
+            input.type = 'file';
+            input.multiple = 'true';
+            input.onchange = function () {
+                var x = encodeImageFileAsURL(this);
+            }
 
-    const p= document.createElement('p');
-    const i= document.createElement('i');
-    i.setAttribute('class','fa fa-plus');
+            const p = document.createElement('p');
+            const i = document.createElement('i');
+            i.setAttribute('class', 'fa fa-plus');
 
-    p.appendChild(i);
+            p.appendChild(i);
 
-    const label= document.createElement('label');
-    label.htmlFor= 'inp';
-    label.innerHTML= 'Add Files';
+            const label = document.createElement('label');
+            label.htmlFor = 'inp';
+            label.innerHTML = 'Add Files';
 
-    addFile.appendChild(p);
-    addFile.appendChild(label);
-    addFile.appendChild(input);
-    
-    //addFile is the child of addMoreFile
-    addMoreFile.appendChild(addFile);
+            addFile.appendChild(p);
+            addFile.appendChild(label);
+            addFile.appendChild(input);
 
-    //addMoreFile is the child of createPDF
-    createPDF.appendChild(addMoreFile);
-}
+            //addFile is the child of addMoreFile
+            addMoreFile.appendChild(addFile);
 
-//back to home 
-function backToHomepage(){
-    location.reload();
-}
+            //addMoreFile is the child of createPDF
+            createPDF.appendChild(addMoreFile);
+        }
 
-        </script>
-    </body>
-    </html>
-    
+        //back to home 
+        function backToHomepage() {
+            location.reload();
+        }
+
+    </script>
+</body>
+
+</html>

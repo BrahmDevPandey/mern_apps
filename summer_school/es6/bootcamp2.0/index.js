@@ -1,89 +1,90 @@
-// create a js file
+// console.log("Hello and welcome to bootcamp");
+// console.log("this is fifth day of bootcamp");
 
-// printing hello msg
-// console.log("Hello Developers!");
-
-// creating variables in js
-// we use three keywords - var, let, const
-// var price = 10;
+// // var, let, const
+// var price = 30;
 // console.log(price);
-// let height = 20.5;
-// console.log(height);
+// price = "Aman";
+// console.log(price);
+// var price = 50;
+// console.log(price);
 
-// the primary diff b/w var and let is that variables declared with var can be 'redeclared', whereas those declared with let, can't
-// var myname = "aman";
-// console.log(myname);
-// var myname = "adarsh";
-// console.log(myname);
-// let myname = "aman";
-// console.log(myname);
-// let myname = "adarsh";
-// console.log(myname);
+// let name = "ajit";
+// console.log(name);
+// name = 30.8;
+// // let name = "aman";
+// console.log(name);
 
-// the variables created with var can be accessed even before they are initialized; but that's not the case with let variables. Eg:
-// console.log(x); // accessing before initialization
-// var x = 20;
-// console.log(x);
-// console.log(y);
-// let y = 30;
-// console.log(y);
+// const pi = 3.14;
+// console.log(pi);
+// pi = 8;
+// // console.log(pi);
 
-// creating arrays in js
-// let names = ["aman", "chaman", "adarsh", 120.8, true, false]; // array need not be homogenous in js
-// console.log(names);
-
-// creating object
-// let student = {
-//   name: "Aman Pandey",
-//   rollNo: 21,
-//   course: "MCA",
-//   fee: 34590,
-// };
-// console.log(student);
-// console.log("The fee is: " + student.fee);
-
-// conditional statements in js: if-else if-else
-// let age = 68;
+// let age = 67;
 // if (age < 18) {
-//   console.log("Not eligible for license.");
+//   console.log("not eligible");
 // } else if (age >= 18 && age <= 60) {
-//   console.log("Eligible for license");
+//   console.log("eligible");
 // } else {
-//   console.log("Ab license lekar karenge bhi kya???");
+//   console.log("age limit exceeded");
 // }
 
-/* switch-case bhi hota h, par abhi skip kar raha 
-ye multi-line comment h*/
-
-// loops in js: for and while
-// let i = 1;
-// while (i <= 10) {
-//   console.log("Hello developer.");
-//   i++;
-// }
-// for (let i = 1; i <= 10; i++) {
-//   console.log("Hello dev.");
-// }
-
-// ab isse zyada basics nhi padhenge. function pe aate hain
-// function is a block of some lines of code identified by some valid name
-// function printHello10Times() {
-//   let i = 1;
-//   while (i <= 10) {
-//     console.log("Hello: " + i);
-//     i++;
-//   }
-// }
-// function printHelloNTimes(n) {
-//   let i = 1;
-//   while (i <= n) {
-//     console.log("Hello: " + i);
-//     i++;
-//   }
+// let sec = "S";
+// switch (sec) {
+//   case "A":
+//     console.log("Section is A");
+//     break;
+//   case "B":
+//     console.log("Section is B");
+//     break;
+//   case "C":
+//     console.log("Section is C");
+//     break;
+//   default:
+//     console.log("Invalid Section");
+//     break;
 // }
 
-// // for executing a function, you need to call it using the name and ()
-// // printHello10Times();
-// printHelloNTimes(4);
+// let count = 1; //initialization
+// while (count <= 5) {
+//   // condition
+//   console.log("Hello World");
+//   console.log("in loop");
+//   count = count + 1; // update
+// }
 
-// now, the main part. event handling
+// for (let count = 1; count <= 5; count = count + 1) {
+//   console.log("Hello World");
+// }
+
+// let arr = [10, "Ajay", 30, 3.14, true];
+// console.log(arr);
+// console.log(arr[3]);
+// arr[3] = "Chaya";
+// console.log(arr[3]);
+
+// let student = {
+//   name: "Aman",
+//   roll: 21,
+//   dept: "CSE",
+//   fee: 138000,
+// };
+
+// // console.log(student);
+// console.log(student.name);
+// console.log(student.dept);
+
+function printHello10Times() {
+  for (let i = 1; i <= 10; i++) {
+    console.log("Hello");
+  }
+}
+
+function printHelloNTimes(n) {
+  for (let i = 1; i <= n; i++) {
+    console.log(`Hello: ${i} and the value of n is ${n}`);
+  }
+}
+
+// printHello10Times();
+printHelloNTimes(5);

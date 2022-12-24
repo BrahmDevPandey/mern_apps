@@ -5,52 +5,29 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event Handling in JS</title>
-    <style>
-        body {
-            text-align: center;
-            font-size: larger;
-            background-color: darkslategray;
-        }
+    <title>Document</title>
 
-        button {
-            font-size: larger;
-            font-weight: bold;
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-        }
-
-        #incrBtn {
-            margin-top: 30%;
-            background-color: green;
-        }
-
-        #decrBtn {
-            background-color: red;
-        }
-
-        #value {
-            color: yellow;
-            font-size: 40px;
-            font-weight: bolder;
-        }
-    </style>
 </head>
 
 <body>
-    <!-- <div id="myDiv">Click the button</div>
-    <button onclick="changeContent()">Click Me</button> -->
-    <div>
-        <button id="incrBtn" onclick="increment()">Increment</button>
-    </div>
-    <div>
-        <p id="value">0</p>
-    </div>
-    <div>
-        <button id="decrBtn" onclick="decrement()">Decrement</button>
-    </div>
-    <script src="events.js"></script>
+    <div id="mydiv">This is some text</div>
+    <button onclick="change()">Click Me</button>
+
+
+
+
+
+    <script>
+        // alert("Welcome to events page");
+        // let num = prompt("Enter a number:");
+        // console.log(num);
+        // confirm("Are you ready to leave?");
+
+        function change() {
+            let msg = document.getElementById("mydiv");
+            msg.innerText = "Button Clicked";
+        }
+    </script>
 </body>
 
 </html>
