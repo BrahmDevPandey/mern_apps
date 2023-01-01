@@ -128,7 +128,11 @@ const App = () => {
     savePdfToServer(pdfURL);
   };
 
+  var pdfSavingDone = false;
+
   const savePdfToServer = (pdfURL) => {
+    if (pdfSavingDone) return;
+    pdfSavingDone = true;
     var xhr = new XMLHttpRequest();
     xhr.responseType = "blob";
 

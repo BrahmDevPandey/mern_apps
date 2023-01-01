@@ -1,5 +1,18 @@
-1. remove autocomplete in password field of registration page
-2. remove gs questions box from course_selected.php
-3. pdf upload option on click of div
-4. uploading animation on pdf uplaod page
-
+1. drift logo on back to top button
+2. proper pink theme color on all buttons and headings
+3. pyq in tabular format
+4. two more tabs in header sectin
+5. remove my answers and upgrade option from user drop down
+6. blog priorities by admin
+7. 6 pdf's with header on answer evaluation section
+8. exact replica of evaluation plans of convertias website
+9. update option on each testimonial 
+10. set max layer of go to top button (problem on testimonials section)
+11. ids to be applied to sections and not on contents
+12. cursor pointer to change to hand on each clickable item
+13. try it free to be centered and enlarged
+14. floating back button on each page
+15. reformat everything on my answers and submit new page
+16. payment gateway required: paytm
+17. update profile to be changed to edit profile
+18. file type and size to be checked on each upload button
