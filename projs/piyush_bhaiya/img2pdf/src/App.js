@@ -147,7 +147,7 @@ const App = () => {
 
         $.ajax({
           type: "POST",
-          url: "http://localhost:4000/save.php",
+          url: "save.php",
           data: { pdfData: blobAsDataUrl },
           success(data) {
             setLoading(false);
@@ -206,6 +206,11 @@ const App = () => {
     [setUploadedImages]
   );
 
+  const handleFinalSubmit = () => {
+    setLoading(true);
+    handleGeneratePdfFromImages();
+  };
+
   const cleanUpUploadedImages = React.useCallback(() => {
     setUploadedImages([]);
     uploadedImages.forEach((image) => {
@@ -231,67 +236,66 @@ const App = () => {
           <div className="text-xl font-bold m-5">Uploading...</div>
         </div>
       ) : (
-        <div onDrop={handleDrop}>
-          <div className="text-[30px] font-bold text-center">
-            Upload your images
-          </div>
-          <div
-            className="flex w-[95%] h-[400px] max-h-[40vh] overflow-x-auto m-5 shadow-2xl bg-gray-100 border-gray-600 border-solid rounded-sm box-border"
-            id="file-container"
-            onDrop={handleDrop}
-          >
-            {uploadedImages.length > 0 ? (
-              uploadedImages.map((img) => (
+        <div>
+          <div className="flex items-center justify-center">
+            <div
+              className="flex w-[60%] h-[400px] max-h-[40vh] overflow-x-auto m-5 shadow-2xl bg-gray-100 border-gray-600 border-solid rounded-sm box-border"
+              id="file-container"
+              onDrop={handleDrop}
+            >
+              {uploadedImages.length > 0 ? (
+                uploadedImages.map((img) => (
+                  <div
+                    key={img.src}
+                    className="flex-shrink-0 text-center mx-2 my-3"
+                  >
+                    <button onClick={() => deleteImage(img.src)}>
+                      <i className="fa fa-trash"></i>
+                    </button>
+                    <img
+                      src={img.src}
+                      alt={"Image of " + img.name}
+                      className="max-h-[90%] h-[90%] rounded-sm"
+                    />
+                    <label>{img.name}</label>
+                  </div>
+                ))
+              ) : (
                 <div
-                  key={img.src}
-                  className="flex-shrink-0 text-center mx-2 my-3"
+                  onDrop={handleDrop}
+                  className="flex align-center text-center m-auto"
                 >
-                  <button onClick={() => deleteImage(img.src)}>
-                    <i className="fa fa-trash"></i>
-                  </button>
-                  <img
-                    src={img.src}
-                    alt={"Image of " + img.name}
-                    className="max-h-[90%] h-[90%] rounded-sm"
-                  />
-                  <label>{img.name}</label>
+                  <label htmlFor="file-input" className="w-max h-min text-xl">
+                    Upload some images...
+                  </label>
                 </div>
-              ))
-            ) : (
-              <div
-                onDrop={handleDrop}
-                className="flex align-center text-center m-auto"
-              >
-                <label htmlFor="file-input" className="w-max h-min text-xl">
-                  Upload some images...
-                </label>
-              </div>
-            )}
+              )}
+            </div>
+            <div className="m-3 p-2 border-2 rounded border-dashed">
+              <label htmlFor="file-input">
+                <span className="w-min p-2 py-3 text-lg rounded-md mx-2 my-4">
+                  Add Images / Pdf
+                  <i className="fa fa-add ml-2"></i>
+                </span>
+                <input
+                  type="file"
+                  id="file-input"
+                  name="file-input"
+                  accept="*"
+                  onChange={handleImageUpload}
+                  style={{ display: "none" }}
+                  multiple
+                />
+              </label>
+            </div>
           </div>
           <div className="text-center my-4">
-            <label htmlFor="file-input">
-              <span className="p-2 py-3 text-lg rounded-md bg-red-400 mx-2 my-4">
-                Add Images
-              </span>
-              <input
-                type="file"
-                id="file-input"
-                name="file-input"
-                accept="*"
-                onChange={handleImageUpload}
-                style={{ display: "none" }}
-                multiple
-              />
-            </label>
             <button
-              onClick={() => {
-                setLoading(true);
-                handleGeneratePdfFromImages();
-              }}
+              onClick={handleFinalSubmit}
               disabled={uploadedImages.length === 0}
-              className="p-2 text-lg rounded-md bg-red-400 disabled:bg-gray-400 disabled:text-white mx-2 my-4"
+              className="p-2 px-3 text-lg rounded-md bg-[#830e5e] text-white disabled:bg-gray-400 disabled:text-white mx-2 my-4 uppercase"
             >
-              Generate PDF
+              Submit
             </button>
           </div>
         </div>
