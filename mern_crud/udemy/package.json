@@ -1,0 +1,14 @@
+{
+  "name": "nodebasics",
+  "version": "1.0.0",
+  "description": "basics of node from udemy mern course",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "author": "brahm dev pandey",
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^2.0.20"
+  }
+}

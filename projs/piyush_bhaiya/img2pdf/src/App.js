@@ -152,12 +152,12 @@ const App = () => {
           success(data) {
             setLoading(false);
             alert("Pdf saved successfully.");
-            window.location.reload();
+            window.location = "user_answer.php";
           },
           error(data) {
             setLoading(false);
             alert("Error saving the page. Please retry.");
-            window.location.reload();
+            window.location = "user_answer.php";
           },
         });
       };
@@ -229,17 +229,17 @@ const App = () => {
   };
 
   return (
-    <div>
+    <div className="dark:bg-neutral-800">
       {loading ? (
-        <div className="h-[60vh] text-center m-5 flex items-center justify-center">
-          <ClipLoader color={"#fc8181"} size={200} />
+        <div className="h-[60vh] text-center m-5 flex items-center justify-center dark:bg-neutral-800 dark:text-white">
+          <ClipLoader color={"rgb(162 28 175)"} size={200} />
           <div className="text-xl font-bold m-5">Uploading...</div>
         </div>
       ) : (
         <div>
           <div className="flex items-center justify-center">
             <div
-              className="flex w-[60%] h-[400px] max-h-[40vh] overflow-x-auto m-5 shadow-2xl bg-gray-100 border-gray-600 border-solid rounded-sm box-border"
+              className="flex w-[60%] h-[400px] max-h-[40vh] overflow-x-auto m-5 shadow-2xl bg-gray-100 border-gray-600 border-solid rounded-sm box-border dark:bg-neutral-800 dark:text-white"
               id="file-container"
               onDrop={handleDrop}
             >
@@ -271,7 +271,7 @@ const App = () => {
                 </div>
               )}
             </div>
-            <div className="m-3 p-2 border-2 rounded border-dashed">
+            <div className="m-3 p-2 border-2 rounded border-dashed dark:text-white">
               <label htmlFor="file-input">
                 <span className="w-min p-2 py-3 text-lg rounded-md mx-2 my-4">
                   Add Images / Pdf
@@ -293,7 +293,7 @@ const App = () => {
             <button
               onClick={handleFinalSubmit}
               disabled={uploadedImages.length === 0}
-              className="p-2 px-3 text-lg rounded-md bg-[#830e5e] text-white disabled:bg-gray-400 disabled:text-white mx-2 my-4 uppercase"
+              className="p-2 px-3 text-lg rounded-md bg-[#830e5e] text-white  dark:bg-fuchsia-700 disabled:bg-gray-400 disabled:text-white mx-2 my-4 uppercase"
             >
               Submit
             </button>
