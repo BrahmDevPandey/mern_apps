@@ -9,8 +9,20 @@
 </head>
 
 <body>
-    this is a demo page
-	<a href="index.html">go</a>
+    <!-- this is a demo page
+	<a href="index.html">go</a> -->
+    <form action="http://127.0.0.1:8000/test" method="get">
+        <input type="text" name="name" id="myname">
+        <input type="text" name="age" id="myage">
+        <button type="submit">Submit</button>
+    </form>
+    <br><br><br>
+    <form action="http://127.0.0.1:8000/calc">
+        <label for="num1">Number 1</label>:<input type="number" name="num1" required> <br>
+        <label for="num1">Number 2</label>:<input type="number" name="num2" required> <br>
+        <label for="num1">Operation</label>:<input type="text" maxlength="1" name="op" required> <br>
+        <button type="submit">Submit</button>
+    </form>
 </body>
 
 </html>

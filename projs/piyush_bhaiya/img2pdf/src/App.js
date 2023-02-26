@@ -229,9 +229,9 @@ const App = () => {
   };
 
   return (
-    <div className="dark:bg-neutral-800">
+    <div className="dark:bg-zinc-900">
       {loading ? (
-        <div className="h-[60vh] text-center m-5 flex items-center justify-center dark:bg-neutral-800 dark:text-white">
+        <div className="h-[60vh] text-center m-5 flex items-center justify-center dark:bg-zinc-900 dark:text-white">
           <ClipLoader color={"rgb(162 28 175)"} size={200} />
           <div className="text-xl font-bold m-5">Uploading...</div>
         </div>
@@ -239,7 +239,7 @@ const App = () => {
         <div>
           <div className="flex items-center justify-center">
             <div
-              className="flex w-[60%] h-[400px] max-h-[40vh] overflow-x-auto m-5 shadow-2xl bg-gray-100 border-gray-600 border-solid rounded-sm box-border dark:bg-neutral-800 dark:text-white"
+              className="flex w-[60%] h-[400px] max-h-[40vh] overflow-x-auto m-5 shadow-2xl bg-gray-100 border-gray-600 border-solid rounded-sm box-border dark:bg-zinc-900 dark:text-white"
               id="file-container"
               onDrop={handleDrop}
             >
@@ -263,17 +263,20 @@ const App = () => {
               ) : (
                 <div
                   onDrop={handleDrop}
-                  className="flex align-center text-center m-auto"
+                  className="flex align-center text-center m-auto p-5 cursor-pointer hover:bg-gray-200 dark:hover:bg-zinc-800"
                 >
-                  <label htmlFor="file-input" className="w-max h-min text-xl">
+                  <label
+                    htmlFor="file-input"
+                    className="w-max h-min text-xl cursor-pointer"
+                  >
                     Upload some images...
                   </label>
                 </div>
               )}
             </div>
-            <div className="m-3 p-2 border-2 rounded border-dashed dark:text-white">
+            <div className="m-3 p-2 border-2 rounded border-dashed dark:text-white cursor-pointer hover:bg-gray-200 dark:hover:bg-zinc-800">
               <label htmlFor="file-input">
-                <span className="w-min p-2 py-3 text-lg rounded-md mx-2 my-4">
+                <span className="w-min p-2 py-3 text-lg rounded-md mx-2 my-4 cursor-pointer hover:bg-gray-200 dark:hover:bg-zinc-800">
                   Add Images / Pdf
                   <i className="fa fa-add ml-2"></i>
                 </span>
@@ -293,7 +296,7 @@ const App = () => {
             <button
               onClick={handleFinalSubmit}
               disabled={uploadedImages.length === 0}
-              className="p-2 px-3 text-lg rounded-md bg-[#830e5e] text-white  dark:bg-fuchsia-700 disabled:bg-gray-400 disabled:text-white mx-2 my-4 uppercase"
+              className="p-2 px-3 text-lg rounded-md bg-[#830e5e] hover:bg-[#9F1272] text-white  dark:bg-fuchsia-700 disabled:bg-gray-400 disabled:text-white mx-2 my-4 uppercase"
             >
               Submit
             </button>
