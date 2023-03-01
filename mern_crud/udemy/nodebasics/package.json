@@ -1,0 +1,17 @@
+{
+  "name": "nodebasics",
+  "version": "1.0.0",
+  "description": "basics of node from udemy mern course",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "author": "brahm dev pandey",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "nodemon": "^2.0.20"
+  }
+}
