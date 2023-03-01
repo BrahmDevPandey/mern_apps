@@ -12,54 +12,22 @@ app.use(
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-let name = undefined,
-  email = undefined;
+let users = [];
 
 // post request
 app.post("/setUser", (req, res) => {
-  let query = req.body;
-  name = query.name;
-  email = query.email;
-  console.log(name, email);
+  let user = req.body;
+  let name = user.name;
+  let email = user.email;
+  let type = user.type;
+  if (users.map((usr) => usr.email).indexOf(email) === -1)
+    users = [...users, { name, email, type }];
   res.send({ status: 200 });
 });
 
-app.get("/getUser", (req, res) => {
-  res.json({
-    name,
-    email,
-  });
+// get request
+app.get("/getUsers", (req, res) => {
+  res.json(users);
 });
 
-app.get("/calc", (req, res) => {
-  let num1 = parseFloat(req.query.num1);
-  let num2 = parseFloat(req.query.num2);
-  let op = req.query.op[0];
-
-  // calculation
-  let operation = "",
-    result = 0;
-  switch (op) {
-    case "+":
-      operation = "sum";
-      result = num1 + num2;
-      break;
-    case "-":
-      operation = "difference";
-      result = num1 - num2;
-      break;
-    case "*":
-      operation = "product";
-      result = num1 * num2;
-      break;
-    case "/":
-      operation = "quotient";
-      result = num1 / num2;
-      break;
-    default:
-      res.send('<h2 style="color: red;">Operation Not supported.</h2>');
-      return;
-  }
-  res.send(`<h1>The ${operation} of ${num1} and ${num2} is: ${result}</h1>`);
-});
 app.listen(8000, () => console.log("Server listening on port 8000..."));
