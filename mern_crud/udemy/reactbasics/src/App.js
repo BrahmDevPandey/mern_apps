@@ -5,6 +5,7 @@ function App() {
   const [email, setEmail] = useState("");
   const [type, setType] = useState("");
   const [allUsers, setAllUsers] = useState([]);
+  const [alertMsg, setAlertMsg] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -38,8 +39,24 @@ function App() {
       });
   };
 
+  const sweetAlert = (msg) => {
+    setAlertMsg(msg);
+    const alertBox = document.getElementById("my-alert");
+    alertBox.style.display = "block";
+    setTimeout(() => {
+      alertBox.style.display = "none";
+    }, 2000);
+  };
+
   return (
     <div className="m-5">
+      <div
+        className="alert alert-danger"
+        style={{ display: "none" }}
+        id="my-alert"
+      >
+        {alertMsg}
+      </div>
       <div className="text-center display-6 mb-5">Add User</div>
       <div className="text-center">
         <form onSubmit={handleSubmit}>
@@ -80,6 +97,12 @@ function App() {
         </form>
         <button onClick={fetchData} className="btn btn-success mt-3">
           Fetch Data
+        </button>
+        <button
+          onClick={() => sweetAlert("Hi there...")}
+          className="btn btn-success mt-3"
+        >
+          Show alert
         </button>
       </div>
       <div className="mt-5">
