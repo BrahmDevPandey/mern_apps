@@ -1,0 +1,148 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+body {
+  background: #2e364a;
+}
+
+.timeline {
+  position: relative;
+  max-width: 1200px;
+  margin: 100px auto;
+}
+
+.container:nth-child(odd) {
+  left: 0px;
+}
+
+.container:nth-child(even) {
+  left: 50%;
+}
+
+.container {
+  padding: 10px 50px;
+  position: relative;
+  width: 50%;
+  animation: movedown 1s linear forwards;
+}
+
+@keyframes movedown {
+  0% {
+    opacity: 1;
+    transform: translateY(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+.container .dot {
+  position: absolute;
+  background: #fff;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  right: -15px;
+  top: 32px;
+  z-index: 10;
+  color: white;
+}
+
+.container:nth-child(even) .dot {
+  left: -15px;
+}
+
+.text-box {
+  padding: 20px 30px;
+  background: #fff;
+  position: relative;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+.timeline::after {
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 100%;
+  background: #fff;
+  top: 0px;
+  left: 50%;
+  margin-left: -3px;
+  z-index: -1;
+  animation: moveline 6s linear forwards;
+}
+
+@keyframes moveline {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 100%;
+  }
+}
+
+small {
+  display: inline-block;
+  margin-bottom: 15px;
+}
+
+.container-arrow {
+  height: 0;
+  width: 0;
+  position: absolute;
+  top: 28px;
+  z-index: 1;
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+}
+
+.container:nth-child(even) .container-arrow {
+  border-right: 15px solid #fff;
+  left: -15px;
+}
+
+.container:nth-child(odd) .container-arrow {
+  border-left: 15px solid #fff;
+  right: -15px;
+}
+
+/* applying media queries */
+@media screen and (max-width: 600px) {
+  .timeline {
+    margin: 50px auto;
+  }
+
+  .timeline::after {
+    left: 31px;
+  }
+  .container {
+    width: 100%;
+    padding-left: 80px;
+    padding-right: 25px;
+  }
+  .text-box {
+    font-size: 13px;
+  }
+  .text-box small {
+    margin-bottom: 10px;
+  }
+  .container:nth-child(even) {
+    left: 0%;
+  }
+  .container:nth-child(even) .dot,
+  .container:nth-child(odd) .dot {
+    left: 15px;
+  }
+
+  .container:nth-child(even) .container-arrow,
+  .container:nth-child(odd) .container-arrow {
+    border-right: 15px solid #fff;
+    border-left: 0;
+    left: -15px;
+  }
+}
