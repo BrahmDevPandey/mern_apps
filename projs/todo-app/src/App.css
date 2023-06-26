@@ -1,0 +1,29 @@
+body {
+  font-size: larger;
+  text-align: center;
+}
+
+.heading {
+  font-size: 30px;
+  text-decoration: underline;
+}
+
+div {
+  font-weight: bold;
+}
+
+section {
+  font-weight: normal;
+}
+
+table {
+  border-collapse: collapse;
+  margin: auto;
+  margin-top: 30px;
+}
+
+th,
+td {
+  border: 2px solid black;
+  padding: 20px;
+}
